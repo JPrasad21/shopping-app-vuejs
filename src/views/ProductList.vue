@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useWishlistStore } from '@/stores/wishlist';
 import ProductList from '@/components/ProductList.vue';
 import ProductDialog from '@/components/ProductDialog.vue';
 import type { Product } from '@/types/Product';
+import { useProductStore } from '@/stores/productStore';
 
 
 const router = useRouter();
+const productStore = useProductStore();
 const wishlistStore = useWishlistStore();
 
-const products = ref<Product[]>([
-    { id: 1, name: "Laptop", price: 1200, image: "https://via.placeholder.com/100", description: "Laptop" },
-    { id: 2, name: "Smartphone", price: 800, image: "https://via.placeholder.com/100", description: "Smartphone" },
-    { id: 3, name: "Headphones", price: 200, image: "https://via.placeholder.com/100", description: "Headphones" }
-]);
+onMounted(() => {
+  productStore.loadProducts();
+});
 const selectedProduct = ref<Product | null>(null);
 
 const openDialog = (product: Product) => {
@@ -33,7 +33,8 @@ const goToWishlist = () => {
     <div class="product-list">
       <h1>Product List</h1>
       <button @click="goToWishlist">Go to Wishlist ({{ wishlistStore.wishlist.length }})</button>
-      <ProductList :products="products" @select="openDialog" />
+      <div v-if="!productStore.products.length">Loading...</div>
+      <ProductList v-else :products="productStore.products" @select="openDialog" />
       <ProductDialog v-if="selectedProduct" :product="selectedProduct" @close="closeDialog" />
     </div>
 </template>
