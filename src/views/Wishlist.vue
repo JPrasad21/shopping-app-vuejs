@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useWishlistStore } from "@/stores/wishlist/wishlistStore";
-import ProductList from '@/components/ProductList.vue';
 import ProductDialog from '@/components/ProductDialog.vue';
 import type { Product } from "@/types/Product";
 import { ref } from "vue";
+import Layout from '@/components/ui/Layout.vue';
+import ProductCard from '@/components/ProductCard.vue';
 
 const wishlistStore = useWishlistStore();
 const clearWishlist = () => {
@@ -27,8 +28,14 @@ const closeDialog = () => {
     <button @click="clearWishlist" v-if="wishlistStore.wishlistProducts.length" class="clear-btn">
       🗑️ Clear Wishlist
     </button>
-
-    <ProductList :products="wishlistStore.wishlistProducts" @select="openDialog" />
+    <Layout>
+      <ProductCard
+        v-for="product in wishlistStore.wishlistProducts"
+        :key="product.id"
+        :product="product"
+        @view="openDialog"
+      />
+    </Layout>
     <ProductDialog v-if="selectedProduct" :product="selectedProduct" @close="closeDialog" />
 
     <p v-if="wishlistStore.wishlistProducts.length === 0" class="empty-message">
