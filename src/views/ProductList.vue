@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useWishlistStore } from '@/stores/wishlist';
+import { useWishlistStore } from '@/stores/wishlist/wishlistStore';
 import ProductList from '@/components/ProductList.vue';
 import ProductDialog from '@/components/ProductDialog.vue';
 import type { Product } from '@/types/Product';
-import { useProductStore } from '@/stores/productStore';
+import { useProductStore } from '@/stores/products/productStore';
 
 
 const router = useRouter();

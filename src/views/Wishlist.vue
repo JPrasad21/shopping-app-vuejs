@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { useWishlistStore } from "@/stores/wishlist";
+import { useWishlistStore } from "@/stores/wishlist/wishlistStore";
 import ProductList from '@/components/ProductList.vue';
 import ProductDialog from '@/components/ProductDialog.vue';
 import type { Product } from "@/types/Product";
-import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
 const wishlistStore = useWishlistStore();
-const { wishlist } = storeToRefs(wishlistStore);
-
 const clearWishlist = () => {
   wishlistStore.clearWishlist();
 };
@@ -27,14 +24,14 @@ const closeDialog = () => {
   <div class="wishlist">
     <h1>Your Wishlist</h1>
 
-    <button @click="clearWishlist" v-if="wishlist.length" class="clear-btn">
+    <button @click="clearWishlist" v-if="wishlistStore.wishlistProducts.length" class="clear-btn">
       🗑️ Clear Wishlist
     </button>
 
-    <ProductList :products="wishlistStore.wishlist" @select="openDialog" />
+    <ProductList :products="wishlistStore.wishlistProducts" @select="openDialog" />
     <ProductDialog v-if="selectedProduct" :product="selectedProduct" @close="closeDialog" />
 
-    <p v-if="wishlist.length === 0" class="empty-message">
+    <p v-if="wishlistStore.wishlistProducts.length === 0" class="empty-message">
       🛒 Your wishlist is empty.
     </p>
   </div>

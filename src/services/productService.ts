@@ -7,7 +7,7 @@ export const fetchProducts = async (): Promise<ApiResponse<Product[]>> => {
         const response = await apiClient.get('/products');
         return { data: response.data };
     } catch (error: any) {
-        return { error: error.response?.data?.message || 'Failed to fetch products' };
+        return { error: error || 'Failed to fetch products' };
     }
 }
 
@@ -16,6 +16,6 @@ export const fetchProductById = async (id: number): Promise<ApiResponse<Product>
         const response = await apiClient.get(`/products/${id}`);
         return { data: response.data };
     } catch (error: any) {
-        return { error: error.response?.data?.message || 'Failed to fetch products' };
+        return { error: error || 'Failed to fetch products' };
     }
 };

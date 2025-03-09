@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { useWishlistStore } from '@/stores/wishlist';
+import { useWishlistStore } from '@/stores/wishlist/wishlistStore';
 import type { Product } from '@/types/Product';
 import { computed } from 'vue';
 
@@ -24,7 +24,7 @@ const wishlistStore = useWishlistStore();
 const isWishlisted = computed(() => wishlistStore.isWishlisted(props.product.id));
 
 const toggleWishlist = () => {
-  wishlistStore.toggleWishlist(props.product);
+  wishlistStore.toggleWishlist(props.product.id);
 };
 
 const openDialog = () => {

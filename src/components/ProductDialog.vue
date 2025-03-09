@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, computed } from "vue";
-import { useWishlistStore } from "@/stores/wishlist";
+import { defineProps, defineEmits } from "vue";
 import type { Product } from "@/types/Product";
+import WishlistButton from "./ui/WishlistButton.vue";
 
-const props = defineProps<{ product: Product }>();
+defineProps<{ product: Product }>();
 const emit = defineEmits(["close"]);
-
-const wishlistStore = useWishlistStore();
-const isWishlisted = computed(() => wishlistStore.isWishlisted(props.product.id));
-const toggleWishlist = () => {
-  wishlistStore.toggleWishlist(props.product);
-};
 const closeDialog = () => {
   emit('close');
 };
@@ -25,13 +19,7 @@ const closeDialog = () => {
           <h2 class="text-xl font-semibold">{{ product.name }}</h2>
           <p class="text-sm font-semibold">${{ product.price }}</p>
           <p class="text-gray-600">{{ product.description }}</p>
-          <button 
-            @click="toggleWishlist()" 
-            class="wishlist-btn" 
-            :class="{ 'active': isWishlisted }"
-          >
-            {{ isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-          </button>
+          <WishlistButton :productId="product.id" />
         </div>
       </div>
     </Transition>
