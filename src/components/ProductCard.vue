@@ -1,7 +1,7 @@
 <template>
     <div class="product-card">
-        <img :src="product.image" :alt="product.name" />
-        <h3>{{ product.name }}</h3>
+        <img :src="product.image" :alt="product.title" />
+        <h3>{{ product.title }}</h3>
         <p>${{ product.price }}</p>
         <button @click="toggleWishlist">
         {{ isWishlisted ? "Remove from Wishlist" : "Add to Wishlist" }}

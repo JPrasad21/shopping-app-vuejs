@@ -13,7 +13,6 @@ export const useProductStore = defineStore('productStore',() => {
     const selectedProduct = ref<Product | null>(null);
     const errorMessageForProduct = ref<string | null>(null);
     const loadProducts = async () => {
-        if(products.value.length) return;
         isLoading.value = true;
         loadingStore.startLoading();
         const { data, error} = await fetchProducts();

@@ -16,7 +16,7 @@ const closeDialog = () => {
       <div class="dialog-overlay" @click.self="closeDialog">
         <div class="dialog-content" @click.stop>
           <button @click="closeDialog" class="close-btn">✖</button>
-          <h2 class="text-xl font-semibold">{{ product.name }}</h2>
+          <h2 class="text-xl font-semibold">{{ product.title }}</h2>
           <p class="text-sm font-semibold">${{ product.price }}</p>
           <p class="text-gray-600">{{ product.description }}</p>
           <WishlistButton :productId="product.id" />
